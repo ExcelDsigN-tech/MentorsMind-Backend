@@ -75,6 +75,19 @@ export function initializeDeprecationRegistry(): void {
     }),
   );
 
+  // v1 mentor search is superseded by v2 (SearchV2Controller) — issue #1096.
+  // Headers are applied by deprecationMiddleware on the v1 /search mount only
+  // (src/routes/v1/index.ts); search.routes.ts is shared with v2, so the key
+  // must stay version-qualified.
+  deprecationManager.registerDeprecation(
+    createDeprecationConfig("GET /api/v1/search/mentors", {
+      replacementEndpoint: "GET /api/v2/search/mentors",
+      migrationGuide: "https://docs.mentorminds.com/migration/v1-to-v2-search",
+      reason: "Superseded by v2 mentor search with richer filtering and ranking",
+      sunsetMonths: 6,
+    }),
+  );
+
   logger.info("Deprecation registry initialized");
 }
 

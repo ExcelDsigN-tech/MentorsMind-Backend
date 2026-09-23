@@ -33,6 +33,9 @@ class DeprecationManager {
     // Validate sunset date is at least 6 months from now
     const minSunsetDate = new Date();
     minSunsetDate.setMonth(minSunsetDate.getMonth() + this.DEPRECATION_DURATION_MONTHS);
+    // Day granularity: createDeprecationConfig() computes its sunset a few ms
+    // earlier, which would otherwise always fail this check.
+    minSunsetDate.setHours(0, 0, 0, 0);
 
     if (config.sunsetDate < minSunsetDate) {
       throw new Error(
