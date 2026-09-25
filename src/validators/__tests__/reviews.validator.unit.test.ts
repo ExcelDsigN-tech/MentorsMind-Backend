@@ -4,7 +4,7 @@ import {
 } from "../reviews.validator";
 
 // Application-level guard for #1097: out-of-range ratings are rejected before
-// any service or DB call, complementing the chk_reviews_rating DB constraint.
+// any service or DB call, complementing the reviews.rating CHECK constraint.
 const SESSION_ID = "123e4567-e89b-42d3-a456-426614174000";
 
 describe("reviews.validator rating bounds", () => {
